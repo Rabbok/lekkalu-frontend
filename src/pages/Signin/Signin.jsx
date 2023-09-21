@@ -135,6 +135,39 @@ export const Signin = () => {
     //         </Container>
     //     </div>
     // )
+    const { fetchToken } = useContext(Context);
+    const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        try {
+            const data = new FormData(event.currentTarget);
+            const username = data.get('username');
+            const password = data.get('password');
+
+            const loginUser = await fetchToken(username, password)
+
+            loginUser == 200
+                ?
+                navigate("/")
+                :
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    html: '<p>User with provided details does not exist</p>',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+        } catch (error) {
+            // Обработка ошибки
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className={styles.authentication}>
@@ -144,41 +177,76 @@ export const Signin = () => {
             </div>
 
             <div className={styles.authenticationContainer}>
-               <h1 className={styles.title}>Log in or sign up</h1>
+                <h1 className={styles.title}>Log in or sign up</h1>
 
                 <div className={styles.loginContainer}>
-                    <form action="" className={styles.loginForm}>
-                        <label htmlFor="" className={styles.loginLabel}>Label</label>
-                        <input type="text" className={styles.loginInput}/>
-                        <button className={styles.loginButton}>Continue</button>
+                    <form onSubmit={handleSubmit} className={styles.loginForm}>
+                        <label htmlFor="username" className={styles.loginLabel}>
+                            Username
+                        </label>
+                        <input
+                            type="text"
+                            name="username"
+                            id="username"
+                            className={styles.loginInput}
+                            autoComplete="username"
+                            required
+                            autoFocus
+                        />
+                        <label htmlFor="password" className={styles.loginLabel}>
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            className={styles.loginInput}
+                            autoComplete="current-password"
+                            required
+                        />
+                        <button
+                            type="submit"
+                            className={styles.loginButton}
+                            disabled={loading}
+                        >
+                            Continue
+                        </button>
                     </form>
                 </div>
 
                 <div className={styles.orBlock}>
-                    <img className={styles.orImage} src={divider} alt="" />
+                    <img
+                        className={styles.orImage}
+                        src={divider}
+                        alt=""
+                    />
                     <p className={styles.orText}>OR</p>
-                    <img className={styles.orImag} src={divider} alt="" />
+                    <img
+                        className={styles.orImage}
+                        src={divider}
+                        alt=""
+                    />
                 </div>
 
                 <div className={styles.singupContainer}>
                     <button className={styles.singupButton}>
-                        <img src={facebookIcon} alt="facebook" className={styles.singupImg}/>
+                        <img src={facebookIcon} alt="facebook" className={styles.singupImg} />
                         <p className={styles.singupText}>Continue with Facebook</p>
                     </button>
 
                     <button className={styles.singupButton}>
-                        <img src={googleIcon} alt="google" className={styles.singupImg}/>
+                        <img src={googleIcon} alt="google" className={styles.singupImg} />
                         <p className={styles.singupText}>Continue with Google</p>
                     </button>
 
                     <button className={styles.singupButton}>
-                        <img src={appleIcon} alt="apple" className={styles.singupImg}/>
+                        <img src={appleIcon} alt="apple" className={styles.singupImg} />
                         <p className={styles.singupText}>Continue with Apple</p>
                     </button>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Signin;

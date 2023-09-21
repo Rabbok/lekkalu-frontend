@@ -121,6 +121,10 @@
     margin: 0;
 }
 
+.orImage {
+    width: 40%;
+}
+
 .singupContainer {
     width: 528px;
     margin: auto;
@@ -130,7 +134,7 @@
 }
 
 .singupButton {
-    width: 528px;
+    width: 100%;
     height: 64px;
     padding: 16.5px, 119px, 15.5px, 119px;
     border-radius: 40px;
@@ -152,3 +156,64 @@
     color: #333333;
     margin: 0;
 }
+
+@media screen and (max-width: 768px) {
+    .authentication {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .logo {
+        position: relative;
+        padding-top: 3rem;
+        margin-bottom: 1rem;
+    }
+  
+    .logoText {
+      font-size: 36px;
+      line-height: 40px;
+    }
+  
+    .logoCircle {
+      height: 36px;
+      width: 36px;
+      margin-bottom: 10px;
+    }
+  
+    .authenticationContainer {
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 10rem;
+    }
+  
+    .title {
+      font-size: 28px;
+      line-height: 40px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  
+    .loginContainer {
+      width: 90%;
+    }
+  
+    .loginInput {
+      width: 100%;
+    }
+  
+    .loginButton {
+      width: 100%;
+    }
+  
+    .orBlock {
+      width: 90%;
+      margin: 20px auto;
+    }
+  
+    .singupContainer {
+      width: 90%;
+      margin-bottom: 2rem;
+    }
+  }
